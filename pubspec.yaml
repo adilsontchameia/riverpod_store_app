@@ -7,10 +7,10 @@ environment:
   sdk: '>=2.19.4 <3.0.0'
 
 dependencies:
-  dio: ^5.0.2
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.4.9
+  dio: ^5.0.2
   formz: ^0.6.1
   go_router: ^6.2.0
   google_fonts: ^4.0.3
