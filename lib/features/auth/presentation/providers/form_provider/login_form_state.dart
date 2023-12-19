@@ -38,8 +38,8 @@ class LoginFormState {
     isPosting: $isPosting,
     isFormPosted: $isFormPosted, 
     isValid: $isValid,
-    Email: $Email,
-    Password: $Password,
+    Email: $email,
+    Password: $password,
     ''';
   }
 }

@@ -32,7 +32,7 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
 
   _touchEveryField() {
     final email = Email.dirty(state.email.value);
-    final password = Password.dirty(state.email.value);
+    final password = Password.dirty(state.password.value);
 
     state = state.copyWith(
         isFormPosted: true,

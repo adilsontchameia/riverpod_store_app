@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:teslo_shop/features/auth/presentation/providers/provider.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
 class LoginScreen extends StatelessWidget {
@@ -26,9 +28,9 @@ class LoginScreen extends StatelessWidget {
               color: Colors.white,
               size: 100,
             ),
-            const SizedBox(height: 80),
+            const SizedBox(height: 90),
             Container(
-              height: size.height - 260, // 80 los dos sizebox y 100 el ícono
+              height: size.height - 280, // 80 los dos sizebox y 100 el ícono
               width: double.infinity,
               decoration: BoxDecoration(
                 color: scaffoldBackgroundColor,
@@ -44,46 +46,55 @@ class LoginScreen extends StatelessWidget {
   }
 }
 
-class _LoginForm extends StatelessWidget {
+class _LoginForm extends ConsumerWidget {
   const _LoginForm();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     final textStyles = Theme.of(context).textTheme;
+    final loginForm = ref.watch(loginFormProvider);
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 50),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Column(
         children: [
           const SizedBox(height: 50),
           Text('Login', style: textStyles.titleLarge),
-          const SizedBox(height: 90),
-          const CustomTextFormField(
-            label: 'Correo',
+          const SizedBox(height: 20),
+          CustomTextFormField(
+            label: 'Email',
             keyboardType: TextInputType.emailAddress,
+            onChanged: ref.read(loginFormProvider.notifier).onEmailChange,
+            errorMessage:
+                loginForm.isFormPosted ? loginForm.email.errorMessage : null,
           ),
           const SizedBox(height: 30),
-          const CustomTextFormField(
-            label: 'Contraseña',
+          CustomTextFormField(
+            label: 'Password',
             obscureText: true,
+            onChanged: ref.read(loginFormProvider.notifier).onPasswordChange,
+            errorMessage:
+                loginForm.isFormPosted ? loginForm.password.errorMessage : null,
           ),
           const SizedBox(height: 30),
           SizedBox(
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
-                text: 'Ingresar',
+                text: 'Login In',
                 buttonColor: Colors.black,
-                onPressed: () {},
+                onPressed: () {
+                  ref.read(loginFormProvider.notifier).onFormSubmit();
+                },
               )),
           const Spacer(flex: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('¿No tienes cuenta?'),
+              const Text('Not our member yet ?'),
               TextButton(
                   onPressed: () => context.push('/register'),
-                  child: const Text('Crea una aquí'))
+                  child: const Text('Create an account here !'))
             ],
           ),
           const Spacer(flex: 1),
