@@ -1,16 +1,25 @@
+import '../../../../shared/infrastructure/services/services.dart';
 import '../../../domain/domain.dart';
 import '../../../infrasctruture/infrasctruture.dart';
 import '../provider.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
+  final keyValueStorageService = KeyValueStorageServiceImpl();
 
-  return AuthNotifier(authRepository: authRepository);
+  return AuthNotifier(
+    authRepository: authRepository,
+    keyValueStorageService: keyValueStorageService,
+  );
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepositoryImpl authRepository;
-  AuthNotifier({required this.authRepository}) : super(AuthState());
+  final KeyValueStorageServiceImpl keyValueStorageService;
+  AuthNotifier({
+    required this.authRepository,
+    required this.keyValueStorageService,
+  }) : super(AuthState());
 
   Future<void> login(String email, String password) async {
     await Future.delayed(const Duration(milliseconds: 500));
@@ -27,7 +36,7 @@ class AuthNotifier extends StateNotifier<AuthState> {
   Future<void> register(String email, String password) async {}
 
   Future<void> logout([String? errorMessage]) async {
-    //TODO: Clean token
+    await keyValueStorageService.removeKey('token');
     state = state.copyWith(
       authStatus: AuthStatus.notAuthenticated,
       user: null,
@@ -37,11 +46,12 @@ class AuthNotifier extends StateNotifier<AuthState> {
 
   void checkAuthStatus() async {}
 
-  void _setLoggedUser(User user) {
-    //TODO: Need to save the token in the device
+  void _setLoggedUser(User user) async {
+    await keyValueStorageService.setKeyValue('token', user.token);
     state = state.copyWith(
       user: user,
       authStatus: AuthStatus.authenticated,
+      errorMessage: '',
     );
   }
 }
