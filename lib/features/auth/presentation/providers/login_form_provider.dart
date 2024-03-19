@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:formz/formz.dart';
 
@@ -81,8 +79,6 @@ class LoginFormNotifier extends StateNotifier<LoginFormState> {
   onFormSubmit() {
     _touchEveryField();
     if (state.isValid) return;
-
-    print(state.toString());
   }
 
   _touchEveryField() {

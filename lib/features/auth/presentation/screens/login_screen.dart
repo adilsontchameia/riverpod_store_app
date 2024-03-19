@@ -63,7 +63,7 @@ class _LoginForm extends ConsumerWidget {
           Text('Login', style: textStyles.titleLarge),
           const SizedBox(height: 90),
           CustomTextFormField(
-            label: 'Correo',
+            label: 'E-mail',
             keyboardType: TextInputType.emailAddress,
             onChanged: ref.read(loginFormProvider.notifier).onEmailChanged,
             errorMessage:
@@ -71,7 +71,7 @@ class _LoginForm extends ConsumerWidget {
           ),
           const SizedBox(height: 30),
           CustomTextFormField(
-            label: 'Contraseña',
+            label: 'Password',
             obscureText: true,
             onChanged: ref.read(loginFormProvider.notifier).onPasswordChanged,
             errorMessage:
@@ -82,7 +82,7 @@ class _LoginForm extends ConsumerWidget {
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
-                text: 'Ingresar',
+                text: 'Login',
                 buttonColor: Colors.black,
                 onPressed: () {
                   ref.read(loginFormProvider.notifier).onFormSubmit();
@@ -92,10 +92,10 @@ class _LoginForm extends ConsumerWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('¿No tienes cuenta?'),
+              const Text('Don\'t  an account ?'),
               TextButton(
                   onPressed: () => context.push('/register'),
-                  child: const Text('Crea una aquí'))
+                  child: const Text('Press here'))
             ],
           ),
           const Spacer(flex: 1),

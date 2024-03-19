@@ -40,9 +40,10 @@ class CustomTextFormField extends StatelessWidget {
               bottomRight: borderRadius),
           boxShadow: [
             BoxShadow(
-                color: Colors.black.withOpacity(0.06),
-                blurRadius: 10,
-                offset: const Offset(0, 5))
+              color: Colors.black.withOpacity(0.06),
+              blurRadius: 10,
+              offset: const Offset(0, 5),
+            )
           ]),
       child: TextFormField(
         onChanged: onChanged,
@@ -56,9 +57,9 @@ class CustomTextFormField extends StatelessWidget {
           enabledBorder: border,
           focusedBorder: border,
           errorBorder: border.copyWith(
-              borderSide: BorderSide(color: Colors.red.shade800)),
+              borderSide: const BorderSide(color: Colors.transparent)),
           focusedErrorBorder: border.copyWith(
-              borderSide: BorderSide(color: Colors.red.shade800)),
+              borderSide: const BorderSide(color: Colors.transparent)),
           isDense: true,
           label: label != null ? Text(label!) : null,
           hintText: hint,
