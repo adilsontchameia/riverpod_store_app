@@ -6,7 +6,7 @@ import '../infrastructure.dart';
 
 class AuthDataSourceImpl extends AuthDataSource {
   final dio = Dio(BaseOptions(
-    baseUrl: Environments.apiUrl,
+    baseUrl: Environment.apiUrl,
   ));
 
   @override

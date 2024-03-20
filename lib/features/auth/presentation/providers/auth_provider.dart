@@ -45,10 +45,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
     try {
       final user = await authRepository.checkAuthStatus(token);
       _setLoggedUser(user);
-    } on CustomError {
-      logout();
     } catch (e) {
-      throw Exception();
+      logout();
     }
   }
 
@@ -65,9 +63,10 @@ class AuthNotifier extends StateNotifier<AuthState> {
     await keyValueStorageService.removeKeyValue('token');
 
     state = state.copyWith(
-        authStatus: AuthStatus.notAuthenticated,
-        user: null,
-        errorMessage: errorMessage);
+      authStatus: AuthStatus.notAuthenticated,
+      user: null,
+      errorMessage: errorMessage,
+    );
   }
 }
 
