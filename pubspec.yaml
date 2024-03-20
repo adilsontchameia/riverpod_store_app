@@ -1,10 +1,10 @@
 name: teslo_shop
 description: A new Flutter project.
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
-  sdk: '>=2.19.4 <3.0.0'
+  sdk: ">=2.19.4 <3.0.0"
 
 dependencies:
   dio: ^5.0.2
@@ -27,4 +27,5 @@ flutter:
   assets:
     - assets/loaders/
     - assets/images/
+    - .env
     - google_fonts/montserrat_alternates/
