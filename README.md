@@ -1,17 +1,19 @@
 # Flutter - Authenticated CRUD App - TesloShop
 
-Este es un proyecto para trabajar con:
+This is a flutter project to learn how to work with:
 
-- Cámara
-- Tokens de acceso
+- Camera
+- Access Tokens 
 - CRUD (Create, Read, Update, Delete) Rest API Endpoints
 - Riverpod
 - GoRouter
+- Clean Architeture and SOLID Concepts
+- Design Patterns 
 
-## El backend lo pueden obtener de aquí
+## Backend is here
 
 [Teslo Backend - Nest RestServer](https://hub.docker.com/repository/docker/klerith/flutter-backend-teslo-shop/general)
 
-# Importante
+# Important
 
-Recuerden leer y seguir la guía para montar el backend localmente.
+Please, follow the guidelines to set up locally
