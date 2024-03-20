@@ -6,8 +6,11 @@ import '../infra.dart';
 class AuthDatasourceImpl extends AuthDatasource {
   //TODO: implement adapter interface
   final dio = Dio(
-    BaseOptions(baseUrl: Environments.apiUrl),
+    BaseOptions(
+      baseUrl: Environments.apiUrl,
+    ),
   );
+
   @override
   Future<User> checkAuthStatus(String token) {
     throw UnimplementedError();
@@ -22,14 +25,13 @@ class AuthDatasourceImpl extends AuthDatasource {
       );
 
       final user = UserMapper.userJsonToEntity(response.data);
-
       return user;
     } on DioException catch (e) {
       if (e.response?.statusCode == 401) {
-        throw CustomError(e.response?.data['message'] ?? 'Wrong credentials');
+        throw CustomError(e.response?.data['message'] ?? 'Wron credentials');
       }
       if (e.type == DioExceptionType.connectionTimeout) {
-        throw CustomError('Please check the internet connection');
+        throw CustomError('Check internet connection');
       }
       throw Exception();
     } catch (e) {

@@ -5,7 +5,9 @@ import 'providers.dart';
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
 
-  return AuthNotifier(authRepository: authRepository);
+  return AuthNotifier(
+    authRepository: authRepository,
+  );
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
@@ -13,14 +15,15 @@ class AuthNotifier extends StateNotifier<AuthState> {
   AuthNotifier({required this.authRepository}) : super(AuthState());
 
   Future<void> login(String email, String password) async {
-    await Future.delayed(const Duration(microseconds: 500));
+    await Future.delayed(const Duration(milliseconds: 500));
+
     try {
       final user = await authRepository.login(email, password);
       _setLoggedUser(user);
     } on CustomError catch (e) {
       logout(e.message);
     } catch (e) {
-      logout('Something wrong happened');
+      logout('Something went wrong');
     }
   }
 

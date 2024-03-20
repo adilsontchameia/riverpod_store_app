@@ -70,29 +70,28 @@ class _RegisterForm extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 50),
       child: Column(
         children: [
-          const SizedBox(height: 50),
           Text('Nueva cuenta', style: textStyles.titleMedium),
-          const SizedBox(height: 50),
+          const Spacer(),
           const CustomTextFormField(
             label: 'Nombre completo',
             keyboardType: TextInputType.emailAddress,
           ),
-          const SizedBox(height: 30),
+          const Spacer(),
           const CustomTextFormField(
             label: 'Correo',
             keyboardType: TextInputType.emailAddress,
           ),
-          const SizedBox(height: 30),
+          const Spacer(),
           const CustomTextFormField(
             label: 'Contraseña',
             obscureText: true,
           ),
-          const SizedBox(height: 30),
+          const Spacer(),
           const CustomTextFormField(
             label: 'Repita la contraseña',
             obscureText: true,
           ),
-          const SizedBox(height: 30),
+          const Spacer(),
           SizedBox(
               width: double.infinity,
               height: 60,
@@ -101,7 +100,6 @@ class _RegisterForm extends StatelessWidget {
                 buttonColor: Colors.black,
                 onPressed: () {},
               )),
-          const Spacer(flex: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -116,7 +114,6 @@ class _RegisterForm extends StatelessWidget {
                   child: const Text('Ingresa aquí'))
             ],
           ),
-          const Spacer(flex: 1),
         ],
       ),
     );
