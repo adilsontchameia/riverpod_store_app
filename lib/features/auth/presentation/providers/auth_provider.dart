@@ -1,20 +1,19 @@
-import '../../domain/domain.dart';
-import '../../infra/infra.dart';
-import 'providers.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:teslo_shop/features/auth/domain/domain.dart';
+import 'package:teslo_shop/features/auth/infrastructure/infrastructure.dart';
 
 final authProvider = StateNotifierProvider<AuthNotifier, AuthState>((ref) {
   final authRepository = AuthRepositoryImpl();
 
-  return AuthNotifier(
-    authRepository: authRepository,
-  );
+  return AuthNotifier(authRepository: authRepository);
 });
 
 class AuthNotifier extends StateNotifier<AuthState> {
   final AuthRepository authRepository;
+
   AuthNotifier({required this.authRepository}) : super(AuthState());
 
-  Future<void> login(String email, String password) async {
+  Future<void> loginUser(String email, String password) async {
     await Future.delayed(const Duration(milliseconds: 500));
 
     try {
@@ -23,28 +22,28 @@ class AuthNotifier extends StateNotifier<AuthState> {
     } on CustomError catch (e) {
       logout(e.message);
     } catch (e) {
-      logout('Something went wrong');
+      logout('Error no controlado');
     }
   }
 
-  Future<void> register(String email, String password, String fullName) async {}
-  Future<void> checkAuthStatus() async {}
-  Future<void> logout([String? errorMessage]) async {
-    //TODO: clean token
+  void registerUser(String email, String password) async {}
+
+  void checkAuthStatus() async {}
+
+  void _setLoggedUser(User user) {
+    // TODO: need to save locally
     state = state.copyWith(
-      authStatus: AuthStatus.notAuthenticated,
-      user: null,
-      errorMessage: errorMessage,
+      user: user,
+      authStatus: AuthStatus.authenticated,
     );
   }
 
-  void _setLoggedUser(User user) {
-    //TODO: needs to save token physically
+  Future<void> logout([String? errorMessage]) async {
+    // TODO: clean token
     state = state.copyWith(
-      user: user,
-      errorMessage: '',
-      authStatus: AuthStatus.authenticated,
-    );
+        authStatus: AuthStatus.notAuthenticated,
+        user: null,
+        errorMessage: errorMessage);
   }
 }
 
@@ -63,8 +62,8 @@ class AuthState {
 
   AuthState copyWith({
     AuthStatus? authStatus,
-    final User? user,
-    final String? errorMessage,
+    User? user,
+    String? errorMessage,
   }) =>
       AuthState(
         authStatus: authStatus ?? this.authStatus,

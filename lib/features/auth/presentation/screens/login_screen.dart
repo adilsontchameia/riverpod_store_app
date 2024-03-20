@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:teslo_shop/features/auth/presentation/providers/login_form_provider.dart';
+import 'package:teslo_shop/features/auth/presentation/providers/auth_provider.dart';
 import 'package:teslo_shop/features/auth/presentation/providers/providers.dart';
 import 'package:teslo_shop/features/shared/shared.dart';
 
@@ -51,25 +51,22 @@ class LoginScreen extends StatelessWidget {
 class _LoginForm extends ConsumerWidget {
   const _LoginForm();
 
-  void showSnackbar(BuildContext context, String errorMessage) {
+  void showSnackbar(BuildContext context, String message) {
     ScaffoldMessenger.of(context).hideCurrentSnackBar();
-    ScaffoldMessenger.of(context).showSnackBar(
-      SnackBar(
-        content: Text(errorMessage),
-        backgroundColor: Theme.of(context).colorScheme.error,
-      ),
-    );
+    ScaffoldMessenger.of(context)
+        .showSnackBar(SnackBar(content: Text(message)));
   }
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final textStyles = Theme.of(context).textTheme;
-
     final loginForm = ref.watch(loginFormProvider);
+
     ref.listen(authProvider, (previous, next) {
       if (next.errorMessage.isEmpty) return;
       showSnackbar(context, next.errorMessage);
     });
+
+    final textStyles = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 50),
@@ -79,15 +76,15 @@ class _LoginForm extends ConsumerWidget {
           Text('Login', style: textStyles.titleLarge),
           const SizedBox(height: 90),
           CustomTextFormField(
-            label: 'E-mail',
+            label: 'Correo',
             keyboardType: TextInputType.emailAddress,
-            onChanged: ref.read(loginFormProvider.notifier).onEmailChanged,
+            onChanged: ref.read(loginFormProvider.notifier).onEmailChange,
             errorMessage:
                 loginForm.isFormPosted ? loginForm.email.errorMessage : null,
           ),
           const SizedBox(height: 30),
           CustomTextFormField(
-            label: 'Password',
+            label: 'Contraseña',
             obscureText: true,
             onChanged: ref.read(loginFormProvider.notifier).onPasswordChanged,
             errorMessage:
@@ -98,19 +95,20 @@ class _LoginForm extends ConsumerWidget {
               width: double.infinity,
               height: 60,
               child: CustomFilledButton(
-                text: 'Login',
+                text: 'Ingresar',
                 buttonColor: Colors.black,
-                onPressed: () =>
-                    ref.read(loginFormProvider.notifier).onFormSubmit(),
+                onPressed: () {
+                  ref.read(loginFormProvider.notifier).onFormSubmit();
+                },
               )),
           const Spacer(flex: 2),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const Text('Don\'t  an account ?'),
+              const Text('¿No tienes cuenta?'),
               TextButton(
                   onPressed: () => context.push('/register'),
-                  child: const Text('Press here'))
+                  child: const Text('Crea una aquí'))
             ],
           ),
           const Spacer(flex: 1),
