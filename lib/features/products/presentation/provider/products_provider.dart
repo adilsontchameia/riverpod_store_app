@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../domain/domain.dart';
+import 'products_repository_provider.dart';
 
 //!1
 class ProductsState {
@@ -71,3 +72,10 @@ class ProductsNotifier extends StateNotifier<ProductsState> {
     );
   }
 }
+
+//!3
+final producsProvider =
+    StateNotifierProvider<ProductsNotifier, ProductsState>((ref) {
+  final productsRepository = ref.watch(productsRepositoryProvider);
+  return ProductsNotifier(productRepository: productsRepository);
+});
