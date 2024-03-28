@@ -36,7 +36,8 @@ class AuthNotifier extends StateNotifier<AuthState> {
       logout('Error no controlado: $e');
     }
 
-    // final user = await authRepository.login(email, password);
+    // fin
+    //al user = await authRepository.login(email, password);
     // state =state.copyWith(user: user, authStatus: AuthStatus.authenticated)
   }
 
