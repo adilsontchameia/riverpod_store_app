@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:teslo_shop/features/products/presentation/provider/providers.dart';
-import 'package:teslo_shop/features/shared/shared.dart';
+
+import '../../../shared/widgets/widgets.dart';
+import '../provider/providers.dart';
+import '../widgets/widgets.dart';
 
 class ProductsScreen extends StatelessWidget {
   const ProductsScreen({super.key});
@@ -43,11 +45,6 @@ class _ProductsViewState extends ConsumerState {
   void initState() {
     super.initState();
     ref.read(producsProvider.notifier).loadNextPage();
-    // scrollController.addListener(() {
-    //   if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
-    //     ref.read(producsProvider.notifier).loadNextPage();
-    //   }
-    // });
   }
 
   @override
@@ -70,7 +67,7 @@ class _ProductsViewState extends ConsumerState {
         itemBuilder: ((context, index) {
           final product = productsState.products[index];
 
-          return Text(product.title);
+          return ProductCard(product: product);
         }),
       ),
     );
