@@ -1,6 +1,9 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 import '../../../../config/config.dart';
 import '../../domain/domain.dart';
+import '../mappers/product_mapper.dart';
 
 class ProductsDatasourceImpl extends ProductsDatasource {
   late final Dio dio;
@@ -31,13 +34,18 @@ class ProductsDatasourceImpl extends ProductsDatasource {
   @override
   Future<List<Product>> getProductByPage(
       {int limit = 10, int offset = 0}) async {
-    final response =
-        await dio.get<List>('api/products?limit=$limit&offset=$offset');
-    final List<Product> products = [];
-    for (final product in response.data ?? []) {
-      //products.add();
+    try {
+      final response =
+          await dio.get<List>('api/products?limit=$limit&offset=$offset');
+      final List<Product> products = [];
+      for (final product in response.data ?? []) {
+        products.add(ProductMapper.jsonToEntity(product));
+      }
+      return products;
+    } catch (e) {
+      log('Product By Page: $e');
     }
-    return products;
+    return [];
   }
 
   @override
