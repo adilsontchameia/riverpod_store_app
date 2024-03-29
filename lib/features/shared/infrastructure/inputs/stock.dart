@@ -9,8 +9,7 @@ class Stock extends FormzInput<int, StockError> {
     r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
   );
 
-  // Call super.pure to represent an unmodified form input.
-  const Stock.pure() : super.pure(0);
+  // Call super.pure to represent an unmodified form input.  const Stock.pure() : super.pure(0);
 
   // Call super.dirty to represent a modified form input.
   const Stock.dirty(int value) : super.dirty(value);
