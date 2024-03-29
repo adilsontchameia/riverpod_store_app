@@ -4,7 +4,7 @@ import '../../../auth/presentation/providers/auth_provider.dart';
 import '../../domain/domain.dart';
 import '../../infrastructure/infrastructure.dart';
 
-final productsRepositoryProvider = Provider<ProductRepository>((ref) {
+final productsRepositoryProvider = Provider<ProductsRepository>((ref) {
   final accessToken = ref.watch(authProvider).user?.token ?? '';
 
   final productsRepository = ProductsRepositoryImpl(

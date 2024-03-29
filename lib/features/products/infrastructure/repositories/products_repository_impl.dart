@@ -1,6 +1,6 @@
 import '../../domain/domain.dart';
 
-class ProductsRepositoryImpl extends ProductRepository {
+class ProductsRepositoryImpl extends ProductsRepository {
   final ProductsDatasource datasource;
   ProductsRepositoryImpl(this.datasource);
 

@@ -37,7 +37,7 @@ class ProductsState {
 
 //!2
 class ProductsNotifier extends StateNotifier<ProductsState> {
-  final ProductRepository productRepository;
+  final ProductsRepository productRepository;
   ProductsNotifier({required this.productRepository}) : super(ProductsState()) {
     loadNextPage();
   }
