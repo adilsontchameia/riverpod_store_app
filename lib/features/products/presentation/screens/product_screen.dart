@@ -3,29 +3,30 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../provider/providers.dart';
 
-class ProductScreen extends ConsumerStatefulWidget {
+class ProductScreen extends ConsumerWidget {
   final String productId;
-  const ProductScreen({super.key, required this.productId});
+  const ProductScreen({
+    super.key,
+    required this.productId,
+  });
 
   @override
-  ProductScreenState createState() => ProductScreenState();
-}
-
-class ProductScreenState extends ConsumerState<ProductScreen> {
-  @override
-  void initState() {
-    super.initState();
-    ref.read(productProvider(widget.productId).notifier);
-  }
-
-  @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final productState = ref.watch(productProvider(productId));
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Edit Product'),
+        title: const Text('Edit Product '),
+        actions: [
+          IconButton(
+              onPressed: () {}, icon: const Icon(Icons.camera_alt_outlined))
+        ],
       ),
       body: Center(
-        child: Text(widget.productId),
+        child: Text(productState.product?.title ?? 'Loading'),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        child: const Icon(Icons.save_alt_outlined),
       ),
     );
   }
