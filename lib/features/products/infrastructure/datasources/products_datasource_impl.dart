@@ -31,7 +31,6 @@ class ProductsDatasourceImpl extends ProductsDatasource {
     try {
       final response = await dio.get('/products/$id');
       final product = ProductMapper.jsonToEntity(response.data);
-
       return product;
     } on DioException catch (e) {
       if (e.response!.statusCode == 404) throw ProductNotFound();
