@@ -117,7 +117,7 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
         TitleValidator.dirty(state.title!.value),
         Slug.dirty(state.slug!.value),
         Price.dirty(state.price!.value),
-        Stock.dirty(value),
+        Stock.dirty(state.inStock!.value),
       ]),
     );
   }
