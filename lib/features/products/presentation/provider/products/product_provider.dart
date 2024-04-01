@@ -1,7 +1,9 @@
+import 'dart:developer';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/domain.dart';
-import 'providers.dart';
+import '../../../domain/domain.dart';
+import '../providers.dart';
 
 final productProvider = StateNotifierProvider.autoDispose
     .family<ProductNotifier, ProductState, String>((ref, productId) {
@@ -30,7 +32,7 @@ class ProductNotifier extends StateNotifier<ProductState> {
       );
     } catch (e) {
       //404 not found
-      print(e);
+      log(e.toString());
     }
   }
 }

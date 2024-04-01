@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:teslo_shop/features/products/presentation/widgets/widgets.dart';
@@ -138,7 +140,7 @@ class _SizeSelector extends StatelessWidget {
       }).toList(),
       selected: Set.from(selectedSizes),
       onSelectionChanged: (newSelection) {
-        print(newSelection);
+        log(newSelection.toString());
       },
       multiSelectionEnabled: true,
     );
@@ -171,7 +173,7 @@ class _GenderSelector extends StatelessWidget {
         }).toList(),
         selected: {selectedGender},
         onSelectionChanged: (newSelection) {
-          print(newSelection);
+          log(newSelection.toString());
         },
       ),
     );

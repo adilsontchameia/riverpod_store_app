@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import '../../domain/domain.dart';
+import '../../../domain/domain.dart';
 import 'products_repository_provider.dart';
 
 //!1
