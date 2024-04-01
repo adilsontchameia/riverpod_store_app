@@ -4,16 +4,16 @@ import 'package:formz/formz.dart';
 enum TitleError { empty, format }
 
 // Extend FormzInput and provide the input type and error type.
-class Title extends FormzInput<String, TitleError> {
+class TitleValidator extends FormzInput<String, TitleError> {
   static final RegExp emailRegExp = RegExp(
     r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$',
   );
 
   // Call super.pure to represent an unmodified form input.
-  const Title.pure() : super.pure('');
+  const TitleValidator.pure() : super.pure('');
 
   // Call super.dirty to represent a modified form input.
-  const Title.dirty(String value) : super.dirty(value);
+  const TitleValidator.dirty(String value) : super.dirty(value);
 
   String? get errorMessage {
     if (isValid || isPure) return null;
