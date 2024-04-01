@@ -8,6 +8,15 @@ import '../provider/providers.dart';
 
 class ProductScreen extends ConsumerWidget {
   final String productId;
+
+  void showSnackBar(BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+      content: Text('Product saved'),
+      duration: Duration(seconds: 2),
+    ));
+  }
+
   const ProductScreen({
     super.key,
     required this.productId,
@@ -33,7 +42,11 @@ class ProductScreen extends ConsumerWidget {
 
           ref
               .read(productFormProvider(productState.product!).notifier)
-              .onFormSubmit();
+              .onFormSubmit()
+              .then((value) {
+            if (!value) return;
+            showSnackBar(context);
+          });
         },
         child: const Icon(Icons.save_alt_outlined),
       ),
@@ -61,8 +74,7 @@ class _ProductView extends ConsumerWidget {
         ),
         const SizedBox(height: 10),
         Center(
-            child:
-                Text(productForm.title!.value, style: textStyles.titleSmall)),
+            child: Text(productForm.title.value, style: textStyles.titleSmall)),
         const SizedBox(height: 10),
         _ProductInformation(product: product),
       ],
@@ -87,28 +99,28 @@ class _ProductInformation extends ConsumerWidget {
           CustomProductField(
             isTopField: true,
             label: 'Name',
-            initialValue: productForm.title!.value,
+            initialValue: productForm.title.value,
             onChanged:
                 ref.read(productFormProvider(product).notifier).onTitleChanged,
-            errorMessage: productForm.title!.errorMessage,
+            errorMessage: productForm.title.errorMessage,
           ),
           CustomProductField(
             isTopField: true,
             label: 'Slug',
-            initialValue: productForm.slug!.value,
+            initialValue: productForm.slug.value,
             onChanged:
                 ref.read(productFormProvider(product).notifier).onSlugChanged,
-            errorMessage: productForm.slug!.errorMessage,
+            errorMessage: productForm.slug.errorMessage,
           ),
           CustomProductField(
             isBottomField: true,
             label: 'Price',
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            initialValue: productForm.price!.value.toString(),
+            initialValue: productForm.price.value.toString(),
             onChanged: (value) => ref
                 .read(productFormProvider(product).notifier)
                 .onPriceChanged(double.tryParse(value) ?? 0.0),
-            errorMessage: productForm.price!.errorMessage,
+            errorMessage: productForm.price.errorMessage,
           ),
           const SizedBox(height: 15),
           const Text('Extras'),
@@ -119,7 +131,7 @@ class _ProductInformation extends ConsumerWidget {
           ),
           const SizedBox(height: 5),
           _GenderSelector(
-            selectedGender: productForm.gender!,
+            selectedGender: productForm.gender,
             onGenderChanged:
                 ref.read(productFormProvider(product).notifier).onGenderChanged,
           ),
@@ -128,11 +140,11 @@ class _ProductInformation extends ConsumerWidget {
             isTopField: true,
             label: 'Stock',
             keyboardType: const TextInputType.numberWithOptions(decimal: true),
-            initialValue: productForm.inStock!.value.toString(),
+            initialValue: productForm.inStock.value.toString(),
             onChanged: (value) => ref
                 .read(productFormProvider(product).notifier)
                 .onStockChanged(int.tryParse(value) ?? -1),
-            errorMessage: productForm.inStock!.errorMessage,
+            errorMessage: productForm.inStock.errorMessage,
           ),
           CustomProductField(
             maxLines: 6,
