@@ -26,6 +26,33 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
           ),
         );
 
+  Future<bool> onFormSubmit() async {
+    _touchEverything();
+
+    if (state.isFormValid) return false;
+
+    if (onSubmitCallback == null) return false;
+
+    // final productLike = {
+    //   ...state.toMap(),
+    //   'tags': state.tags.split(',').map((e) => e.trim()).toList(),
+    // };
+
+    return true;
+  }
+
+  void _touchEverything() {
+    state = state.copyWith(
+        isFormValid: Formz.validate(
+      [
+        TitleValidator.dirty(state.title!.value),
+        Slug.dirty(state.slug!.value),
+        Price.dirty(state.price!.value),
+        Stock.dirty(state.inStock!.value),
+      ],
+    ));
+  }
+
   void onTitleChanged(String value) {
     state = state.copyWith(
       title: TitleValidator.dirty(value),
@@ -72,6 +99,22 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
         Stock.dirty(value),
       ]),
     );
+  }
+
+  void onSizeChanged(List<String> sizes) {
+    state = state.copyWith(sizes: sizes);
+  }
+
+  void onGenderChanged(String gender) {
+    state = state.copyWith(gender: gender);
+  }
+
+  void onDescriptionChanged(String description) {
+    state = state.copyWith(description: description);
+  }
+
+  void onTagsChanged(String tags) {
+    state = state.copyWith(tags: tags);
   }
 }
 
