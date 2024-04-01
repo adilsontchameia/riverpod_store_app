@@ -119,7 +119,7 @@ class _ProductInformation extends ConsumerWidget {
             initialValue: productForm.inStock!.value.toString(),
             onChanged: (value) => ref
                 .read(productFormProvider(product).notifier)
-                .onStockChanged(int.tryParse(value) ?? 0),
+                .onStockChanged(int.tryParse(value) ?? -1),
             errorMessage: productForm.inStock!.errorMessage,
           ),
           CustomProductField(
