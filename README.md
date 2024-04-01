@@ -16,4 +16,5 @@ This is a flutter project to learn how to work with:
 
 # Important
 
-Please, follow the guidelines to set up locally
+Please, follow the guidelines to set up locally.
+Create the file names .env based on .env.template and replease the localhost with your IP address, if you do not do it, on android it won't run the app (internet).
