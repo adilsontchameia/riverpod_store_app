@@ -4,6 +4,12 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>The app needs access to the gallery to select pictures for the products.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>The app needs access to the camera to take pictures for the products.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>In case of upload videos, it is necessary to accept this permission.</string>
 	<key>CFBundleDisplayName</key>
 	<string>Teslo Shop</string>
 	<key>CFBundleExecutable</key>
