@@ -22,8 +22,7 @@ class ProductsDatasourceImpl extends ProductsDatasource {
           ),
         );
   @override
-  Future<List<Product>> createUpdateProduct(
-      Map<String, dynamic> productLike) async {
+  Future<Product> createUpdateProduct(Map<String, dynamic> productLike) async {
     try {
       final String? productId = productLike['id'];
       final String method = (productId == null) ? 'POST' : 'PATCH';
@@ -32,15 +31,10 @@ class ProductsDatasourceImpl extends ProductsDatasource {
 
       productLike.remove('id');
 
-      final response = await dio.request(
-        url,
-        data: productLike,
-        options: Options(
-          method: method,
-        ),
-      );
-      final product = ProductMapper.jsonToEntity(response.data);
+      final response = await dio.request(url,
+          data: productLike, options: Options(method: method));
 
+      final product = ProductMapper.jsonToEntity(response.data);
       return product;
     } catch (e) {
       throw Exception();
