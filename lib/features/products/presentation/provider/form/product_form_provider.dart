@@ -43,6 +43,7 @@ class ProductFormNotifier extends StateNotifier<ProductFormState> {
     _touchedEverything();
     if (!state.isFormValid) return false;
 
+    // TODO: regresar
     if (onSubmitCallback == null) return false;
 
     final productLike = {
